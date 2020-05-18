@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>TYREMARKS</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+</head>
+
+<body>
+  <div id="app" class="container" style="display: none;">
+    <h1 id="title">TYREMARKS</h1>
+    <h2 id="slogan">- MARK YOUR ACTIVITIES ONTO MAPS -</h2>
+    <ul class="controller-list">
+      <li>
+        <button id="importFile"> Import Files </button>
+      </li>
+      <li>
+        <button id="exportFile"> Export Map </button>
+      </li>
+    </ul>
+
+    <textarea id="preview"></textarea>
+    <ul class="center-list">
+      <li>
+        center:
+      </li>
+      <li>
+        <textarea id="geocenter"></textarea>
+      </li>
+    </ul>
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
+    <p>
+      Environment: <strong id="os"></strong> <strong id="env"></strong>
+    </p>
+    <p>
+      Electron version: <strong id="electron-version"></strong>
+    </p>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  color: #525252;
+}
+
+a {
+  text-decoration: none;
+  color: #cb3837;
+}
+
+button {
+  border-radius: 2px;
+  background-color: rgba(186, 225, 255, 0.5);
+  font-size: 12pt;
+}
+
+.container {
+  text-align: center;
+}
+
+.title {
+  padding: 10px;
+  background-color: rgba(255, 223, 186, 0.5);
+  text-align: center;
+  font-size: 15pt;
+}
+
+.slogan {
+  padding: 10px;
+  background-color: rgba(255, 179, 186, 0.5);
+  text-align: center;
+  font-size: 14pt;
+}
+
+.map-container {
+  width: 700px;
+  height: 350px;
+  flex: 1;
+}
+
+#map {
+  width: 700px;
+  height: 350px;
+}
+
+#preview {
+  margin-top: 20px;
+  width: 600px;
+  height: 150px;
+}
+
+ul {
+  list-style-type: none;
+  list-style: none;
+}
+
+.controller-list li {
+  padding: 20px;
+  display: inline;
+}
+
+.center-list li {
+  font-size: 14pt;
+}
+
+#center-input {
+  width: 350px;
+  height: 20px;
+  resize: none;
+}
