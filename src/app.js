@@ -26,7 +26,7 @@ import {
 } from "./datahandler/datahandler";
 
 import {
-  calculateCenter
+  getGeocenter
 } from "./calculator/calculator";
 
 import {
@@ -86,24 +86,18 @@ async function readFile(filePaths) {
   }
   await Promise.all(promises);
   document.querySelector("#preview").innerHTML = Array.from(activities.keys());
-  const center = calculateCenter(getAllhistory(activities.values()));
-  document.querySelector("#geocenter").innerHTML = center;
 
-  map.setView(center, 14);
+  const geocenter = getGeocenter(getAllhistory(activities.values()));
+  document.querySelector("#geocenter").innerHTML = geocenter;
+  map.setView(geocenter, 14);
   tileLayer.addTo(map);
-
-  for (const [key, value] of activities.entries()) {
-    getPolyLine(value).addTo(map);
-  }
+  for (const [key, value] of activities.entries()) getPolyLine(value).addTo(map);
 }
 
 function parseContent(filePath, parser) {
   return new Promise(async (resolve, reject) => {
     await fs.readFile(filePath, (err, content) => {
-      if (err != null) {
-        alert(err);
-        return;
-      }
+      if (err != null) reject(err);
       parser.parse(content, (error, data) => {
         if (error) reject(error);
         else {

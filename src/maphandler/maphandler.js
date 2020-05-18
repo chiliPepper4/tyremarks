@@ -1,4 +1,3 @@
-// const L = require('leaflet');
 import L from 'leaflet';
 
 export const getMap = () => {

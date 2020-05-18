@@ -41,11 +41,11 @@ app.on("ready", () => {
   setApplicationMenu();
 
   const mainWindow = createWindow("main", {
-    width: 800,
-    height: 400,
+    width: 1200,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
-      devTools: false
+      // devTools: false
     }
   });
 
