@@ -8,17 +8,79 @@
     crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+
+  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
   <div class="container">
-    <div id="map" style="width: 1200px; height: 1200px;"></div>
+    <div id="map"></div>
   </div>
   <script>
-    var map = L.map('map').setView([<%= center %>], 15);
+    const map = L.map('map', {
+      zoom: 9,
+      zoomControl: true,
+      preferCanvas: false,
+    }).setView([<%= center %>], 15);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    const tile_layer_osm = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        "attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.",
+        "detectRetina": false,
+        "maxNativeZoom": 18,
+        "maxZoom": 18,
+        "minZoom": 0,
+        "noWrap": false,
+        "opacity": 1,
+        "subdomains": "abc",
+        "tms": false
+      }
+    ).addTo(map);
+
+    const tile_layer_terrain = L.tileLayer(
+      "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg", {
+        "attribution": "Map tiles by \u003ca href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.",
+        "detectRetina": false,
+        "maxNativeZoom": 18,
+        "maxZoom": 18,
+        "minZoom": 0,
+        "noWrap": false,
+        "opacity": 1,
+        "subdomains": "abc",
+        "tms": false
+      }
+    ).addTo(map);
+
+    const layer_controler = {
+      base_layers: {
+        "openstreetmap": tile_layer_osm,
+        "stamenterrain": tile_layer_terrain,
+      },
+      overlays: {},
+    };
+
+    L.control.layers(
+      layer_controler.base_layers,
+      layer_controler.overlays, {
+        "autoZIndex": true,
+        "collapsed": true,
+        "position": "topright"
+      }
+    ).addTo(map);
+    tile_layer_terrain.remove();
 
     <%for(const el of positions){%>
     L.polyline(<%= JSON.stringify(el) %>, {
@@ -39,6 +101,7 @@
       "weight": 3
     }).addTo(map);
     <%}%>
+
   </script>
 </body>
 

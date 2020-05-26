@@ -133,7 +133,11 @@ async function exportFile() {
       }]
     });
   if (file.filePath) {
-    const center = document.querySelector("#geocenter").textContent;
-    writeFile(remote.app.getAppPath(), file.filePath, center, activities.values());
+    const params = {
+      filePath: file.filePath,
+      center: document.querySelector("#geocenter").textContent,
+      positions: activities.values(),
+    };
+    writeFile(remote.app.getAppPath(), params);
   }
 }
